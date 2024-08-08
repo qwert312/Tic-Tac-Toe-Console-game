@@ -19,7 +19,7 @@ public class GameManager {
         System.out.println();
 
         while (true) {
-            System.out.println("Start! Type the coordinates on your turn in this format: row,column\n");
+            System.out.println("Start! Type coordinates on your turn in this format: row,column\n");
 
             playGame();
 
