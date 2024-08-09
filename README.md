@@ -1,29 +1,31 @@
-# Консольные крестики нолики
+# Tic-Tac-Toe Console Game
 
-Простая консольная реализация крестиков ноликов на Java, где на сетке 3x3 игрок играет с ботом.
+A simple console-based implementation of tic-tac-toe where the player competes against a bot on a 3x3 grid.
 
-# Использованные технологии
-Программа была создана с использованием
-* Intellij IDEA 2024.1.4
+# Technologies Used
+
+The program was created using:
+* IntelliJ IDEA 2024.1.4
 * JDK 22.0.2
-* Junit 5.0.0 (на самом деле для такой маленькой программы тесты скорее больше утомляли, чем помогали, но я хотел попрактиковаться :) )
+* JUnit 5.0.0 (while testing for such a small program proved to be more cumbersome than beneficial, I wanted to get some practice :) )
 
-# Установка и запуск
-1. Скачать и распаковать архив TicTacToe-Console-Game из [релизов](https://github.com/qwert312/Tic-Tac-Toe-Console-game/releases/latest).
-2. Запустить .bat файл launch.bat
+# Installation and Launch
 
-Для работы с исходным кодом достаточно скачать и распаковать архив Source из того же места, а затем открыть папку Tic-Tac-Toe-Console-game-1.0.0.
+1. Download and extract the TicTacToe-Console-Game archive from the [releases](https://github.com/qwert312/Tic-Tac-Toe-Console-game/releases/latest).
+2. Run launch.bat
 
-# Использование
+To work with the source code, simply download and extract the Source archive from the same location, and then open the Tic-Tac-Toe-Console-game-1.0.0 folder.
 
-По сути это классические крестики-нолики на сетке 3x3. Игра рассчитана на одного человека — вторым игроков является бот, который случайным образом заполняет пустую ячейку на своём ходу (да, искуственный интеллект не самый совершенный).
+# Usage
 
-В начале игрок может выбрать свой игровой символ — X или O. Оставшийся символ достаётся боту. Ходит первым тот, у кого символ X.
+This is a classic tic-tac-toe game on a 3x3 grid. The game is designed for a single player, with the second player being a bot that randomly fills an empty cell on its turn (so, the AI isn't perfect).
 
-В свой ход игрок должен ввести координаты ячейки, куда он хочет поставить значение. Если она уже занята, то выводится сообщение о некорректном вводе и предлагается ввести координаты ещё раз. После каждого поставленного значения выводится матрица с текущим состоянием доски. Это касается и бота, у него вывод идентичен. Разница лишь в том, что координаты он генерирует сам, а также он не допускает некорректного ввода.
+At the start, the player can choose their game symbol—X or O. The remaining symbol will be assigned to the bot. The player with the X symbol goes first.
 
-Как только кто-то создаёт линию из трёх символов (по прямой или по диагонали), то матч заканчивается с сообщением о победе игрока, которому принадлежит символ. Если все поля сетки были по итогу заняты, а линии символов так и не образовалось, то выводится сообщение о ничьей и матч также заканчивается.
+During their turn, the player must enter the coordinates of the cell where they want to place their symbol. If the cell is already occupied, an error message will be displayed, and the player will be prompted to enter the coordinates again. After each move, the board's current state will be shown. The same applies to the bot, except it generates coordinates on its own and does not allow invalid input.
 
-После конца матча пользователю предлагается провести ещё один. Если пользователь хочет закончить игру, то ему нужно написать "n" (без кавычек). Если же пользователь вводит что-то другое, то игра начинается по новой.
+The game ends when either player creates a line of three symbols (horizontally, vertically, or diagonally), with a victory message displayed for the player who formed the line. If all cells are filled and no player has formed a line, the game ends in a draw.
+
+After the match ends, the user is prompted to play again. To end the game, type "n" (without quotes). Typing anything else will restart the game.
 
 ![alt text](images/image.png)
