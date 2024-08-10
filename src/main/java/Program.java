@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        GameManager gameManager = new GameManager(scan);
-        gameManager.start();
+        GameManager gameManager = new GameManager(scanner);
+        gameManager.run();
     }
 }

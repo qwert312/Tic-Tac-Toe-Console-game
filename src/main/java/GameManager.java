@@ -1,25 +1,26 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class GameManager {
     private final Scanner scan;
-    private Player player;
-    private AI ai;
-    private final Board3x3 board = new Board3x3();
+    private final TicTacToeBoard board = new TicTacToeBoard();
+    private Player human;
+    private Player ai;
+    private boolean isHumanTurn;
 
     public GameManager(Scanner scanner) {
         this.scan = scanner;
     }
 
-    public void start() {
-        System.out.println("TicTacToe console game");
-
-        typePlayerSymbol();
-
-        System.out.println();
+    public void run() {
+        System.out.println("TicTacToe console game with bot");
 
         while (true) {
-            System.out.println("Start! Type coordinates on your turn in this format: row,column\n");
+            askHumanForSymbol();
+
+            System.out.println("\nStart! Type coordinates on your turn in this format: row,column\n");
 
             playGame();
 
@@ -31,67 +32,70 @@ public class GameManager {
         }
     }
 
-    private void typePlayerSymbol() {
+    private void askHumanForSymbol() {
         while (true) {
-            System.out.print("Choose player symbol (X/O): ");
+            System.out.print("Choose your symbol (X/O): ");
             String selectedSymbol = scan.nextLine().trim().toUpperCase();
-            try {
-                if (selectedSymbol.equals("X")) {
-                    player = new Player(selectedSymbol);
-                    ai = new AI("O");
-                    break;
-                } else if (selectedSymbol.equals("O")) {
-                    player = new Player(selectedSymbol);
-                    ai = new AI("X");
-                    break;
-                }
 
-                throw new IllegalArgumentException();
-            } catch (IllegalArgumentException e) {
-                System.out.println("Illegal symbol! Try again");
+            if (selectedSymbol.equals("X")) {
+                human = new Player("Human", selectedSymbol);
+                ai = new Player("AI", "O");
+                isHumanTurn = true;
+                break;
+            } else if (selectedSymbol.equals("O")) {
+                human = new Player("Human", selectedSymbol);
+                ai = new Player("AI", "X");
+                isHumanTurn = false;
+                break;
             }
+
+            System.out.println("Illegal symbol! Try again");
         }
     }
 
     private void playGame() {
         while (true) {
             for (int i = 0; i < 2; i++) {
-                if ((player.getSymbol().equals("X") && i == 0)
-                        || (player.getSymbol().equals("O") && i == 1))
-                    playerTurn();
+                if (isHumanTurn)
+                    humanTurn();
                 else
                     aiTurn();
 
-                System.out.println(board.toString() + "\n");
-                String winnerSymbol = board.checkWinnerSymbol();
-                if (!winnerSymbol.equals(" ")) {
-                    String winner = player.getSymbol().equals(winnerSymbol)
-                            ? player.toString() : ai.toString();
-                    System.out.println("Winner winner chicken dinner. " + winner + " won!");
+                isHumanTurn = !isHumanTurn;
+
+                printBoard();
+
+                CellState winningState = board.checkWinningState();
+                if (winningState != CellState.EMPTY) {
+                    String winner = human.getSymbol().equals(winningState.toString())
+                            ? human.toString() : ai.toString();
+                    System.out.println("\nWinner winner chicken dinner. " + winner + " won!");
                     return;
                 }
 
                 if (board.isFull()) {
-                    System.out.println("Board is full. Draw!");
+                    System.out.println("\nBoard is full. Draw!");
                     return;
                 }
             }
         }
     }
 
-    private void playerTurn() {
+    private void humanTurn() {
         while (true) {
-            System.out.println(player + " turn");
+            System.out.println(human + " turn");
             System.out.print("Coordinates: ");
 
             try {
                 String[] coordinates = scan.nextLine().split(",");
                 int row = Integer.parseInt(coordinates[0]) - 1;
                 int column = Integer.parseInt(coordinates[1]) - 1;
-                player.makeMove(board, row, column);
+                CellState cellStateToInsert = CellState.getByString(human.getSymbol());
+
+                board.setCell(cellStateToInsert, row, column);
                 break;
-            } catch (Exception e) {
-                System.out.println("Illegal coordinates! Try again");
+            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+                System.out.println("\n" + e.getMessage() + "\n");
             }
         }
     }
@@ -100,8 +104,42 @@ public class GameManager {
         System.out.println(ai + " turn");
         System.out.print("Coordinates: ");
 
-        List<Integer> coordinates = ai.makeMove(board);
+        List<Integer> coordinates = getRandomEmptyCoordinates();
+        int row = (coordinates.get(0));
+        int column = (coordinates.get(1));
+        CellState cellStateToInsert = CellState.getByString(ai.getSymbol());
 
-        System.out.println((coordinates.get(0) + 1) + "," + (coordinates.get(1) + 1));
+        board.setCell(cellStateToInsert, row, column);
+
+        System.out.println((row + 1) + "," + (column + 1));
+    }
+
+    private List<Integer> getRandomEmptyCoordinates() {
+        Random rand = new Random();
+        List<List<Integer>> possibleCoordinates = new ArrayList<>();
+        CellState[] boardState = board.getBoardState();
+        int rowSize = boardState.length / 3;
+
+        for (int i = 0; i < boardState.length; i++) {
+            if (boardState[i] == CellState.EMPTY) {
+                possibleCoordinates.add(List.of(i / rowSize, i % rowSize));
+            }
+        }
+
+        return possibleCoordinates.get(rand.nextInt(0, possibleCoordinates.size()));
+    }
+
+    private void printBoard() {
+        CellState[] boardState = board.getBoardState();
+        int rowSize = boardState.length / 3;
+
+        for (int i = 0; i < boardState.length; i++) {
+            System.out.print(boardState[i]);
+            if ((i + 1) % rowSize != 0)
+                System.out.print("|");
+            else if (i != boardState.length - 1)
+                System.out.println("\n-+-+-");
+        }
+        System.out.println();
     }
 }

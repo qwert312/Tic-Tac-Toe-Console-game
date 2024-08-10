@@ -1,7 +1,9 @@
 public class Player {
+    private String name;
     private String symbol;
 
-    public Player(String symbol) {
+    public Player(String name, String symbol) {
+        this.name = name;
         this.symbol = symbol;
     }
 
@@ -9,11 +11,11 @@ public class Player {
         return symbol;
     }
 
-    public void makeMove(Board3x3 board, int row, int col) throws IllegalArgumentException {
-        board.setSymbol(symbol, row, col);
+    public String getName() {
+        return name;
     }
 
     public String toString() {
-        return "Player (" + symbol + ")";
+        return name + " (" + symbol + ")";
     }
 }
