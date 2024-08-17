@@ -14,7 +14,7 @@ The program was created using:
 1. Download and extract the TicTacToe-Console-Game archive from the [releases](https://github.com/qwert312/Tic-Tac-Toe-Console-game/releases/latest).
 2. Run run.bat
 
-To work with the source code, simply download and extract the Source archive from the same location, and then open the Tic-Tac-Toe-Console-game-1.0.0 folder.
+To work with the source code, simply download and extract the Source archive from the same location, and then open the Tic-Tac-Toe-Console-game-1.1.0 folder.
 
 # Usage
 
