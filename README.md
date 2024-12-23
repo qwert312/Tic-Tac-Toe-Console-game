@@ -6,6 +6,7 @@ A simple console-based implementation of tic-tac-toe where the player competes a
 
 The program was created using:
 * IntelliJ IDEA
+* Maven
 * Java 22
 * JUnit 5
 
