@@ -5,9 +5,9 @@ A simple console-based implementation of tic-tac-toe where the player competes a
 # Technologies Used
 
 The program was created using:
-* IntelliJ IDEA 2024.1.4
-* JDK 22.0.2
-* JUnit 5.0.0 (while testing for such a small program proved to be more cumbersome than beneficial, I wanted to get some practice :) )
+* IntelliJ IDEA
+* Java 22
+* JUnit 5
 
 # Installation and Launch
 
