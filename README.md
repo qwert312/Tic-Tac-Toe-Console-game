@@ -15,8 +15,6 @@ The program was created using:
 1. Download and extract the TicTacToe-Console-Game archive from the [releases](https://github.com/qwert312/Tic-Tac-Toe-Console-game/releases/latest).
 2. Run run.bat
 
-To work with the source code, simply download and extract the Source archive from the same location, and then open the Tic-Tac-Toe-Console-game-1.1.0 folder.
-
 # Usage
 
 This is a classic tic-tac-toe game on a 3x3 grid. The game is designed for a single player, with the second player being a bot that randomly fills an empty cell on its turn (so, the AI isn't perfect).
